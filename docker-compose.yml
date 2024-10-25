@@ -1,0 +1,30 @@
+services:
+  postgresdb:
+    image: postgres:bookworm
+    container_name: postgresdb
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    networks:
+      my-network:
+        ipv4_address: 172.20.0.3
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DATABASE_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
+
+networks:
+  my-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

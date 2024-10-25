@@ -1,0 +1,56 @@
+mutation createCategory {
+    createCategory(input: { name: "Tecnologia", description: "curso de tecnologia" }) {
+        id
+        name
+        description
+    }
+}
+
+mutation createCourse {
+    createCourse(input: { name: "Full Cycle", description: "um curso completo", categoryId: "76866cd0-10ea-4a22-b92c-7ce6ba1e8e7b" }) {
+        id
+        name
+    }
+}
+
+query queryCategories {
+    categories{
+        id
+        name
+        description
+    }
+}
+
+query queryCategoriesWithCourses {
+    categories{
+        id
+        name
+        description
+        courses {
+            id
+            name
+        }
+    }
+}
+
+query queryCourses {
+    courses{
+        id
+        name
+        description
+    }
+}
+
+query queryCoursesWithCategory {
+    courses{
+        id
+        name
+        description
+        category {
+            id
+            name
+            description
+        }
+    }
+}
+
